@@ -51,18 +51,3 @@ python app.py
 
 Abre tu navegador en: [http://127.0.0.1:8050]
 
-# Estructura del proyecto
-```bash
-marketing-mix-app/
-├── app.py                 # Punto de entrada de la app Dash
-├── components/            # Componentes individuales (tabs, gráficos, inputs)
-│   └── model_tab.py       # Lógica del modelo
-│   └── metrics_tab.py     # Visualización de métricas
-├── assets/
-│   └── style.css          # Estilos personalizados
-├── data/
-│   └── ejemplo.csv        # Dataset de ejemplo (opcional)
-├── requirements.txt
-└── README.md
-```
-
