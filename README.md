@@ -27,7 +27,7 @@ Esta es una aplicación interactiva construida con [Dash](https://dash.plotly.co
 # Cómo ejecutar
 Clona el repositorio:
 ```bash
-git clone https://github.com/saulsevilla/DashMarketingMixModel
+git clone https://github.com/saulsevilla/DashMarketingMixModel.git
 cd DashMarketingMixModel
 ```
 Crear un entorno virtual (opcional):
