@@ -30,7 +30,10 @@ Clona el repositorio:
 git clone https://github.com/saulsevilla/DashMarketingMixModel
 cd DashMarketingMixModel
 ```
-
+Crear un entorno virtual (opcional):
+```bash
+python -m venv venv
+```
 Activa tu entorno virtual (si tienes uno):
 
 ```bash
