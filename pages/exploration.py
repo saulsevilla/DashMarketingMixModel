@@ -3,6 +3,8 @@ from dash import html, dcc, callback, Input, Output, Dash, MATCH
 import plotly.express as px
 import pandas as pd
 import io
+import plotly.io as pio
+
 
 
 dash.register_page(__name__)
@@ -53,10 +55,16 @@ def corr_matrix(df):
 
 @callback(
     Output('histograms', 'children'),
-    Input('dataset', 'data')
+    Input('dataset', 'data'),
+    Input('theme-toggle', 'value')
 )
-def generate_histograms(json_data):
+def generate_histograms(json_data, theme_value):
+    if 'dark' in theme_value:
+        pio.templates.default = "plotly_dark"
+    else:
+        pio.templates.default = "plotly_white"
     if json_data is None:
+
         return html.Div("No data loaded.")
 
     df = pd.read_json(io.StringIO(json_data), orient='split')

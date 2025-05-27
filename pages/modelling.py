@@ -3,6 +3,7 @@ from dash import Dash, dcc, html, dash_table, Input, Output, State, callback
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm
+import plotly.io as pio
 import plotly.graph_objs as go
 from sklearn.linear_model import BayesianRidge
 
@@ -100,8 +101,8 @@ layout = html.Div([
     html.H1("Vista previa del modelo"),
     dcc.Graph(id="fitted-vs-actual"),
 
-    html.H4("Parámetros del Modelo"),
-    html.Pre(id="model-params", style={"whiteSpace": "pre-wrap", "fontFamily": "monospace"})
+    # html.H4("Parámetros del Modelo"),
+    # html.Pre(id="model-params", style={"whiteSpace": "pre-wrap", "fontFamily": "monospace"})
 ])
 
 @callback(
@@ -180,8 +181,8 @@ from dash.dependencies import ALL
 
 @callback(
     Output("fitted-vs-actual", "figure"),
-    Output("model-params", "children"),
     Output("model", "data"),
+    Input('theme-toggle', 'value'),
     Input("run-model", "n_clicks"),
     State("sales-column", "value"),
     State("media-columns", "value"),
@@ -190,7 +191,12 @@ from dash.dependencies import ALL
     State("n-fourier", "value"),
     State("dataset", "data")
 )
-def ajustar_modelo(n_clicks, sales_col, media_cols, decay_values, decay_ids, n_fourier, dataset):
+def ajustar_modelo(theme_value, n_clicks, sales_col, media_cols, decay_values, decay_ids, n_fourier, dataset):
+    if 'dark' in theme_value:
+        pio.templates.default = "plotly_dark"
+    else:
+        pio.templates.default = "plotly_white"
+
     if not all([sales_col, media_cols, decay_values, dataset]):
         print([bool(sales_col), bool(media_cols), bool(decay_values), bool(dataset)])
         return "Faltan datos."
@@ -221,7 +227,7 @@ def ajustar_modelo(n_clicks, sales_col, media_cols, decay_values, decay_ids, n_f
     fig.update_layout(title="Ventas reales vs. predicción", xaxis_title="Fecha", yaxis_title="Ventas")
 
     # Parámetros
-    params_str = model.summary().as_text()
+    # params_str = model.summary().as_text()
 
     # Modelo
     # print(model.params),
@@ -235,7 +241,7 @@ def ajustar_modelo(n_clicks, sales_col, media_cols, decay_values, decay_ids, n_f
         'y_pred': results
     }
     
-    return fig, params_str, model
+    return fig, model
 
     return f"Modelo ajustado con {len(media_cols)} canales y {n_fourier} componentes Fourier."
 
