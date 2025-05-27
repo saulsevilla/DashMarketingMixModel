@@ -71,4 +71,4 @@ def update_theme(theme, global_theme):
     return theme, global_theme, theme
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
